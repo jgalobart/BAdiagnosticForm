@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import IntroForm from './components/IntroForm';
 import QuestionnaireForm from './components/QuestionnaireForm';
 import ResultsReport from './components/ResultsReport';
 import formData from './data/diagnosticForm.json';
+import { createSession, saveIntroData, completeSession } from './lib/supabase';
 
 const STEPS = {
   INTRO: 'intro',
@@ -14,14 +15,31 @@ function App() {
   const [currentStep, setCurrentStep] = useState(STEPS.INTRO);
   const [userData, setUserData] = useState({});
   const [answers, setAnswers] = useState({});
+  const [sessionId, setSessionId] = useState(null);
 
-  const handleIntroComplete = (data) => {
+  useEffect(() => {
+    const initSession = async () => {
+      const session = await createSession();
+      if (session) {
+        setSessionId(session.id);
+      }
+    };
+    initSession();
+  }, []);
+
+  const handleIntroComplete = async (data) => {
     setUserData(data);
+    if (sessionId) {
+      await saveIntroData(sessionId, data);
+    }
     setCurrentStep(STEPS.QUESTIONNAIRE);
   };
 
-  const handleQuestionnaireComplete = (questionAnswers) => {
+  const handleQuestionnaireComplete = async (questionAnswers, results) => {
     setAnswers(questionAnswers);
+    if (sessionId && results) {
+      await completeSession(sessionId, results);
+    }
     setCurrentStep(STEPS.RESULTS);
   };
 
@@ -38,7 +56,9 @@ function App() {
         <QuestionnaireForm
           areas={formData.areas}
           questions={formData.questions}
+          sessionId={sessionId}
           onComplete={handleQuestionnaireComplete}
+          scoring={formData.scoring}
         />
       )}
 

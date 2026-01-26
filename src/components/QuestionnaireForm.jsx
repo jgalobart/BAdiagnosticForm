@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { ChevronLeft, ChevronRight, Send } from 'lucide-react';
 import AreaSection from './AreaSection';
 import ProgressBar from './ProgressBar';
+import { saveAnswer } from '../lib/supabase';
 
-export default function QuestionnaireForm({ areas, questions, onComplete }) {
+export default function QuestionnaireForm({ areas, questions, sessionId, onComplete, scoring }) {
   const [currentAreaIndex, setCurrentAreaIndex] = useState(0);
   const [answers, setAnswers] = useState({});
 
@@ -13,11 +14,17 @@ export default function QuestionnaireForm({ areas, questions, onComplete }) {
   const totalQuestions = questions.length;
   const answeredQuestions = Object.keys(answers).length;
 
-  const handleAnswer = (questionId, optionId, score) => {
+  const handleAnswer = async (questionId, optionId, score) => {
+    const question = questions.find(q => q.id === questionId);
+    
     setAnswers(prev => ({
       ...prev,
       [questionId]: { optionId, score }
     }));
+
+    if (sessionId) {
+      await saveAnswer(sessionId, questionId, optionId, score, question?.area);
+    }
   };
 
   const isCurrentAreaComplete = () => {
@@ -46,9 +53,48 @@ export default function QuestionnaireForm({ areas, questions, onComplete }) {
     }
   };
 
+  const calculateResults = useMemo(() => {
+    const areaScores = {};
+    
+    areas.forEach(area => {
+      const areaQuestions = questions.filter(q => q.area === area.area);
+      const totalScore = areaQuestions.reduce((sum, q) => {
+        return sum + (answers[q.id]?.score || 0);
+      }, 0);
+      areaScores[area.area] = {
+        ...area,
+        score: totalScore,
+        maxScore: area.max_score,
+        percentage: Math.round((totalScore / area.max_score) * 100)
+      };
+    });
+
+    const totalScore = Object.values(areaScores).reduce((sum, a) => sum + a.score, 0);
+
+    const getThreshold = (score, thresholds) => {
+      return thresholds.find(t => 
+        score >= t.range_inclusive[0] && score <= t.range_inclusive[1]
+      );
+    };
+
+    const globalThreshold = getThreshold(totalScore, scoring.global.thresholds);
+    
+    const priorityAreas = Object.values(areaScores)
+      .sort((a, b) => a.score - b.score)
+      .slice(0, 3)
+      .map(a => ({ id: a.id, area: a.area, title: a.title, score: a.score }));
+
+    return {
+      areaScores,
+      totalScore,
+      globalThreshold,
+      priorityAreas
+    };
+  }, [answers, areas, questions, scoring]);
+
   const handleSubmit = () => {
     if (canSubmit()) {
-      onComplete(answers);
+      onComplete(answers, calculateResults);
     }
   };
 
