@@ -1,14 +1,20 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { 
   RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, 
   ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Cell, Tooltip 
 } from 'recharts';
 import { 
   Trophy, AlertTriangle, TrendingUp, Clock, Download, 
-  CheckCircle2, AlertCircle, Target 
+  CheckCircle2, AlertCircle, Target, Mail, Loader2, CheckCheck 
 } from 'lucide-react';
+import { pdf } from '@react-pdf/renderer';
+import ResultsPDF from './ResultsPDF';
+import { sendResultsEmail } from '../lib/emailService';
 
-export default function ResultsReport({ formData, answers, areas, questions, scoring }) {
+export default function ResultsReport({ formData, answers, areas, questions, scoring, sessionId }) {
+  const [emailStatus, setEmailStatus] = useState('idle');
+  const [emailSent, setEmailSent] = useState(false);
+
   const results = useMemo(() => {
     const areaScores = {};
     
@@ -85,6 +91,59 @@ export default function ResultsReport({ formData, answers, areas, questions, sco
     if (percentage <= 33) return { text: 'Prioritat ALTA', color: 'bg-red-100 text-red-700' };
     if (percentage <= 66) return { text: 'Prioritat MITJANA', color: 'bg-yellow-100 text-yellow-700' };
     return { text: 'Ben encaminat', color: 'bg-green-100 text-green-700' };
+  };
+
+  useEffect(() => {
+    const sendEmail = async () => {
+      if (emailSent || emailStatus === 'sending') return;
+      
+      setEmailStatus('sending');
+      
+      try {
+        const pdfDoc = <ResultsPDF formData={formData} results={results} areas={areas} />;
+        const pdfBlob = await pdf(pdfDoc).toBlob();
+        
+        const reader = new FileReader();
+        reader.onloadend = async () => {
+          const base64 = reader.result.split(',')[1];
+          
+          const response = await sendResultsEmail(sessionId, formData, results, base64);
+          
+          if (response) {
+            setEmailStatus('sent');
+            setEmailSent(true);
+          } else {
+            setEmailStatus('error');
+          }
+        };
+        reader.readAsDataURL(pdfBlob);
+      } catch (error) {
+        console.error('Error generating PDF or sending email:', error);
+        setEmailStatus('error');
+      }
+    };
+
+    if (results && formData && !emailSent) {
+      sendEmail();
+    }
+  }, [results, formData, sessionId, emailSent, emailStatus, areas]);
+
+  const handleDownloadPDF = async () => {
+    try {
+      const pdfDoc = <ResultsPDF formData={formData} results={results} areas={areas} />;
+      const pdfBlob = await pdf(pdfDoc).toBlob();
+      
+      const url = URL.createObjectURL(pdfBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `informe-diagnosi-${formData.business_name?.replace(/\s+/g, '-').toLowerCase() || 'comerc'}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+    }
   };
 
   return (
@@ -260,17 +319,51 @@ export default function ResultsReport({ formData, answers, areas, questions, sco
           </div>
         </div>
 
+        {/* Email Status */}
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+          <div className="flex items-center gap-4">
+            <div className={`p-3 rounded-xl ${
+              emailStatus === 'sent' ? 'bg-green-100' :
+              emailStatus === 'error' ? 'bg-red-100' :
+              'bg-blue-100'
+            }`}>
+              {emailStatus === 'sending' ? (
+                <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+              ) : emailStatus === 'sent' ? (
+                <CheckCheck className="w-8 h-8 text-green-600" />
+              ) : emailStatus === 'error' ? (
+                <Mail className="w-8 h-8 text-red-600" />
+              ) : (
+                <Mail className="w-8 h-8 text-blue-600" />
+              )}
+            </div>
+            <div>
+              <p className="text-gray-500 text-sm">Correu electrònic</p>
+              <p className={`text-lg font-medium ${
+                emailStatus === 'sent' ? 'text-green-700' :
+                emailStatus === 'error' ? 'text-red-700' :
+                'text-gray-800'
+              }`}>
+                {emailStatus === 'sending' ? 'Enviant informe...' :
+                 emailStatus === 'sent' ? `Enviat a ${formData.email}` :
+                 emailStatus === 'error' ? 'Error en enviar. Descarrega el PDF manualment.' :
+                 'Preparant enviament...'}
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Footer */}
         <div className="text-center py-6">
           <p className="text-gray-500 text-sm">
             Informe generat per Comerç a Punt - Barcelona Activa
           </p>
           <button 
-            onClick={() => window.print()}
+            onClick={handleDownloadPDF}
             className="mt-4 inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-colors"
           >
             <Download className="w-5 h-5" />
-            Descarregar informe
+            Descarregar informe PDF
           </button>
         </div>
       </div>

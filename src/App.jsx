@@ -69,6 +69,7 @@ function App() {
           areas={formData.areas}
           questions={formData.questions}
           scoring={formData.scoring}
+          sessionId={sessionId}
         />
       )}
     </>
