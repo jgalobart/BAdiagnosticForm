@@ -16,12 +16,17 @@ CREATE TABLE diagnostic_sessions (
   
   -- Intro data (denormalized for easy querying)
   id_tiquet TEXT,
+  cif_empresa TEXT,
   business_name TEXT,
   contact_name TEXT,
+  nif_usuari TEXT,
+  nom_usuari TEXT,
   email TEXT,
   phone TEXT,
   address TEXT,
   district TEXT,
+  barri TEXT,
+  sector TEXT,
   activity_type TEXT,
   activity_other TEXT,
   years_in_operation TEXT,

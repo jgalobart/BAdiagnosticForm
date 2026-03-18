@@ -60,7 +60,7 @@ function App() {
       {currentStep === STEPS.QUESTIONNAIRE && (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
           {urlTicketId && (
-            <div className="max-w-3xl mx-auto px-4 pt-6">
+            <div className="max-w-3xl mx-auto px-4 pt-4 mb-4">
               <div className="bg-white border border-blue-200 rounded-2xl shadow-sm p-4">
                 <p className="text-sm text-gray-600">
                   <span className="font-semibold text-gray-800">idTiquet:</span> {urlTicketId}

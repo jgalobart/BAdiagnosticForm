@@ -6,7 +6,17 @@ export default function IntroForm({ intro, onComplete }) {
   const [errors, setErrors] = useState({});
 
   const handleChange = (fieldId, value) => {
-    setFormData(prev => ({ ...prev, [fieldId]: value }));
+    setFormData(prev => {
+      const next = { ...prev, [fieldId]: value };
+
+      intro.fields.forEach((field) => {
+        if (field.options_by?.field_id === fieldId) {
+          next[field.id] = '';
+        }
+      });
+
+      return next;
+    });
     if (errors[fieldId]) {
       setErrors(prev => ({ ...prev, [fieldId]: null }));
     }
@@ -42,6 +52,14 @@ export default function IntroForm({ intro, onComplete }) {
   const shouldShowField = (field) => {
     if (!field.show_if) return true;
     return formData[field.show_if.field_id] === field.show_if.equals;
+  };
+
+  const getSelectOptions = (field) => {
+    if (field.options_by && field.options_by.field_id) {
+      const key = formData[field.options_by.field_id];
+      return field.options_by.options?.[key] || [];
+    }
+    return field.options || [];
   };
 
   const getIcon = (fieldId) => {
@@ -107,7 +125,7 @@ export default function IntroForm({ intro, onComplete }) {
                       }`}
                     >
                       <option value="">Selecciona una opció...</option>
-                      {field.options.map(opt => (
+                      {getSelectOptions(field).map(opt => (
                         <option key={opt.id} value={opt.id}>{opt.label}</option>
                       ))}
                     </select>

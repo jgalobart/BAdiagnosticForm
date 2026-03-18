@@ -39,11 +39,16 @@ export const saveIntroData = async (sessionId, introData) => {
     .update({
       intro_data: introData,
       status: 'intro_completed',
+      cif_empresa: introData.cif_empresa,
       business_name: introData.business_name,
       contact_name: introData.contact_name,
+      nif_usuari: introData.nif_usuari,
+      nom_usuari: introData.nom_usuari,
       email: introData.email,
       phone: introData.phone,
       district: introData.district,
+      barri: introData.barri,
+      sector: introData.sector,
       activity_type: introData.activity_type,
     })
     .eq('id', sessionId)

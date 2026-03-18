@@ -9,10 +9,27 @@
     "consent_required": true,
     "fields": [
       { "id": "business_name", "label": "Nom del comerç/servei", "type": "text", "required": true },
+      { "id": "cif_empresa", "label": "CIF Empresa", "type": "text", "required": false },
       { "id": "contact_name", "label": "Nom de contacte", "type": "text", "required": true },
+      { "id": "nif_usuari", "label": "NIF propietari", "type": "text", "required": false },
       { "id": "phone", "label": "Telèfon", "type": "text", "required": true },
       { "id": "email", "label": "Email", "type": "email", "required": true },
       { "id": "address", "label": "Adreça del local", "type": "text", "required": true },
+      {
+        "id": "sector",
+        "label": "Sector",
+        "type": "select",
+        "required": false,
+        "options": [
+          { "id": "comerc", "label": "Comerç" },
+          { "id": "hostaleria_turisme_oci", "label": "Hostaleria, turisme i oci" },
+          { "id": "industria_manufactura", "label": "Indústria/Manufactura" },
+          { "id": "produccio_creativa_cultural", "label": "Producció creativa i cultural" },
+          { "id": "salut_ciencies_vida", "label": "Salut i ciències de la vida" },
+          { "id": "serveis_comunitat_atencio_social", "label": "Serveis a la comunitat i atenció social" },
+          { "id": "serveis_personals", "label": "Serveis personals" }
+        ]
+      },
       {
         "id": "district",
         "label": "Districte",
@@ -30,6 +47,109 @@
           { "id": "sant_andreu", "label": "Sant Andreu" },
           { "id": "sant_marti", "label": "Sant Martí" }
         ]
+      },
+      {
+        "id": "barri",
+        "label": "Barri",
+        "type": "select",
+        "required": false,
+        "options_by": {
+          "field_id": "district",
+          "options": {
+            "ciutat_vella": [
+              { "id": "el_raval", "label": "El Raval" },
+              { "id": "el_gotic", "label": "El Gòtic" },
+              { "id": "la_barceloneta", "label": "La Barceloneta" },
+              { "id": "sant_pere_santa_caterina_ribera", "label": "Sant Pere, Santa Caterina i la Ribera (El Born)" }
+            ],
+            "eixample": [
+              { "id": "antiga_esquerra_eixample", "label": "Antiga Esquerra de l’Eixample" },
+              { "id": "nova_esquerra_eixample", "label": "Nova Esquerra de l’Eixample" },
+              { "id": "dreta_eixample", "label": "Dreta de l’Eixample" },
+              { "id": "fort_pienc", "label": "Fort Pienc" },
+              { "id": "sagrada_familia", "label": "Sagrada Família" },
+              { "id": "sant_antoni", "label": "Sant Antoni" }
+            ],
+            "sants_montjuic": [
+              { "id": "el_poble_sec", "label": "El Poble-sec" },
+              { "id": "hostafrancs", "label": "Hostafrancs" },
+              { "id": "la_bordeta", "label": "La Bordeta" },
+              { "id": "la_font_guatlla", "label": "La Font de la Guatlla" },
+              { "id": "la_marina_port", "label": "La Marina del Port" },
+              { "id": "la_marina_prat_vermell", "label": "La Marina del Prat Vermell" },
+              { "id": "sants", "label": "Sants" },
+              { "id": "sants_badal", "label": "Sants-Badal" }
+            ],
+            "les_corts": [
+              { "id": "les_corts", "label": "Les Corts" },
+              { "id": "maternitat_sant_ramon", "label": "La Maternitat i Sant Ramon" },
+              { "id": "pedralbes", "label": "Pedralbes" }
+            ],
+            "sarria_sant_gervasi": [
+              { "id": "sarria", "label": "Sarrià" },
+              { "id": "les_tres_torres", "label": "Les Tres Torres" },
+              { "id": "sant_gervasi_bonanova", "label": "Sant Gervasi – La Bonanova" },
+              { "id": "sant_gervasi_galvany", "label": "Sant Gervasi – Galvany" },
+              { "id": "putget_farro", "label": "El Putget i Farró" },
+              { "id": "vallvidrera_tibidabo_planes", "label": "Vallvidrera, el Tibidabo i les Planes" }
+            ],
+            "gracia": [
+              { "id": "vila_gracia", "label": "Vila de Gràcia" },
+              { "id": "camp_grassot_gracia_nova", "label": "El Camp d’en Grassot i Gràcia Nova" },
+              { "id": "la_salut", "label": "La Salut" },
+              { "id": "el_coll", "label": "El Coll" }
+            ],
+            "horta_guinardo": [
+              { "id": "baix_guinardo", "label": "El Baix Guinardó" },
+              { "id": "can_baro", "label": "Can Baró" },
+              { "id": "el_guinardo", "label": "El Guinardó" },
+              { "id": "font_fargues", "label": "La Font d’en Fargues" },
+              { "id": "el_carmel", "label": "El Carmel" },
+              { "id": "la_teixonera", "label": "La Teixonera" },
+              { "id": "sant_genis_agudells", "label": "Sant Genís dels Agudells" },
+              { "id": "montbau", "label": "Montbau" },
+              { "id": "vall_hebron", "label": "La Vall d’Hebron" },
+              { "id": "la_clota", "label": "La Clota" },
+              { "id": "horta", "label": "Horta" }
+            ],
+            "nou_barris": [
+              { "id": "canyelles", "label": "Canyelles" },
+              { "id": "can_peguera", "label": "Can Peguera" },
+              { "id": "ciutat_meridiana", "label": "Ciutat Meridiana" },
+              { "id": "la_guineueta", "label": "La Guineueta" },
+              { "id": "la_prosperitat", "label": "La Prosperitat" },
+              { "id": "les_roquetes", "label": "Les Roquetes" },
+              { "id": "trinitat_nova", "label": "La Trinitat Nova" },
+              { "id": "turo_peira", "label": "El Turó de la Peira" },
+              { "id": "porta", "label": "Porta" },
+              { "id": "torre_baro", "label": "Torre Baró" },
+              { "id": "vallbona", "label": "Vallbona" },
+              { "id": "verdun", "label": "Verdun" },
+              { "id": "vilapicina_torre_llobeta", "label": "Vilapicina i la Torre Llobeta" }
+            ],
+            "sant_andreu": [
+              { "id": "trinitat_vella", "label": "Trinitat Vella" },
+              { "id": "baro_viver", "label": "Baró de Viver" },
+              { "id": "bon_pastor", "label": "Bon Pastor" },
+              { "id": "la_sagrera", "label": "La Sagrera" },
+              { "id": "navas", "label": "Navas" },
+              { "id": "congres_indians", "label": "El Congrés i els Indians" },
+              { "id": "sant_andreu_palomar", "label": "Sant Andreu de Palomar" }
+            ],
+            "sant_marti": [
+              { "id": "camp_arpa_clot", "label": "El Camp de l’Arpa del Clot" },
+              { "id": "el_clot", "label": "El Clot" },
+              { "id": "parc_llacuna_poblenou", "label": "El Parc i la Llacuna del Poblenou" },
+              { "id": "vila_olimpica_poblenou", "label": "La Vila Olímpica del Poblenou" },
+              { "id": "el_poblenou", "label": "El Poblenou" },
+              { "id": "diagonal_mar_front_maritim", "label": "Diagonal Mar i el Front Marítim del Poblenou" },
+              { "id": "besos_maresme", "label": "El Besòs i el Maresme" },
+              { "id": "provencals_poblenou", "label": "Provençals del Poblenou" },
+              { "id": "sant_marti_provencals", "label": "Sant Martí de Provençals" },
+              { "id": "verneda_pau", "label": "La Verneda i la Pau" }
+            ]
+          }
+        }
       },
       {
         "id": "activity_type",
@@ -481,7 +601,7 @@
       "text": "Disposes d'una definició clara de rols i responsabilitats en la gestió diària de l'establiment?",
       "hints": ["Marca tot el que apliqui"],
       "options": [
-        { "id": "opt1", "label": "'activitat és unipersonal.", "score": 0 },
+        { "id": "opt1", "label": "L'activitat és unipersonal.", "score": 0 },
         { "id": "opt2", "label": "Hi ha personal subcontractat puntualment o proveïdors.", "score": 0 },
         { "id": "opt3", "label": "Hi ha una distribució de responsabilitats establerta de manera verbal, amb un pressupost o informal.", "score": 2 },
         { "id": "opt4", "label": "Els rols i les funcions estan clarament definits i documentats per a cada perfil professional del negoci.", "score": 3 }
