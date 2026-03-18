@@ -230,8 +230,9 @@ const getThresholdStyle = (key) => {
   return styles.thresholdGreen;
 };
 
-export default function ResultsPDF({ formData, results, areas }) {
+export default function ResultsPDF({ results, areas, idTiquet }) {
   const { totalScore, globalThreshold, priorityAreas, areaScores } = results;
+  const scorableAreas = areas.filter((a) => (a.max_score || 0) > 0);
 
   return (
     <Document>
@@ -239,13 +240,9 @@ export default function ResultsPDF({ formData, results, areas }) {
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Informe de Diagnosi</Text>
           <Text style={styles.headerSubtitle}>Comerç a Punt - Barcelona Activa</Text>
-        </View>
-
-        <View style={styles.businessInfo}>
-          <Text style={styles.businessName}>{formData.business_name}</Text>
-          <Text style={styles.businessDetail}>Contacte: {formData.contact_name}</Text>
-          <Text style={styles.businessDetail}>Email: {formData.email}</Text>
-          <Text style={styles.businessDetail}>Telèfon: {formData.phone}</Text>
+          {idTiquet ? (
+            <Text style={styles.headerSubtitle}>idTiquet: {idTiquet}</Text>
+          ) : null}
         </View>
 
         <View style={styles.section}>
@@ -280,7 +277,7 @@ export default function ResultsPDF({ formData, results, areas }) {
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Desglossament per àrees</Text>
-          {areas.map(area => {
+          {scorableAreas.map(area => {
             const areaScore = areaScores[area.area];
             return (
               <View key={area.id} style={styles.areaRow}>

@@ -98,6 +98,7 @@ interface AreaScore {
 
 interface EmailRequest {
   session_id: string;
+  id_tiquet?: string | null;
   to_email: string;
   to_name: string;
   business_name: string;
@@ -166,6 +167,7 @@ serve(async (req) => {
     const data: EmailRequest = await req.json();
     
     const {
+      id_tiquet,
       to_email,
       to_name,
       business_name,
@@ -322,14 +324,17 @@ Barcelona Activa
       <h1>📋 Nova diagnosi completada</h1>
     </div>
     <div class="content">
+      <p style="font-size: 16px;"><strong>Nou comerç ha completat el qüestionari:</strong></p>
+      <p class="value">${business_name}</p>
+      ${id_tiquet ? `
       <div class="info-box">
-        <p class="label">Comerç</p>
-        <p class="value">${business_name}</p>
+        <p class="label">idTiquet</p>
+        <p class="value">${id_tiquet}</p>
       </div>
+      ` : ''}
       <div class="info-box">
         <p class="label">Contacte</p>
         <p class="value">${to_name}</p>
-        <p>${to_email}</p>
       </div>
       <div class="info-box">
         <p class="label">Puntuació</p>
@@ -413,6 +418,7 @@ Barcelona Activa
       <div class="section">
         <div class="section-title">📋 DADES BÀSIQUES</div>
         <table style="width: 100%; border-collapse: collapse;">
+          ${id_tiquet ? `<tr><td style="padding: 8px 0; color: #6b7280; width: 120px;">idTiquet:</td><td style="padding: 8px 0; font-weight: 500;">${id_tiquet}</td></tr>` : ''}
           <tr><td style="padding: 8px 0; color: #6b7280; width: 120px;">Comerç:</td><td style="padding: 8px 0; font-weight: 500;">${business_name}</td></tr>
           <tr><td style="padding: 8px 0; color: #6b7280;">Contacte:</td><td style="padding: 8px 0; font-weight: 500;">${to_name}</td></tr>
           <tr><td style="padding: 8px 0; color: #6b7280;">Telèfon:</td><td style="padding: 8px 0; font-weight: 500;">${phone}</td></tr>
@@ -499,7 +505,7 @@ Barcelona Activa
 Nou comerç per assessorar:
 
 📋 DADES BÀSIQUES:
-Comerç: ${business_name}
+${id_tiquet ? `idTiquet: ${id_tiquet}\n` : ''}Comerç: ${business_name}
 Contacte: ${to_name}
 Telèfon: ${phone}
 Email: ${to_email}
@@ -571,6 +577,7 @@ Sistema automàtic Comerç a Punt
 
     const excelRowData = [
       today,                                    // Data inscripció
+      id_tiquet || "",                          // idTiquet
       business_name,                            // Nom comerç
       to_name,                                  // Contacte
       phone,                                    // Telèfon

@@ -1,6 +1,6 @@
 import { supabase } from './supabase';
 
-export const sendResultsEmail = async (sessionId, formData, results, pdfBase64) => {
+export const sendResultsEmail = async (sessionId, formData, results, pdfBase64, idTiquet = '') => {
   if (!supabase) {
     console.warn('Supabase not configured, email not sent');
     return null;
@@ -12,6 +12,7 @@ export const sendResultsEmail = async (sessionId, formData, results, pdfBase64) 
 
   const emailData = {
     session_id: sessionId,
+    id_tiquet: idTiquet || null,
     to_email: formData.email,
     to_name: formData.contact_name,
     business_name: formData.business_name,

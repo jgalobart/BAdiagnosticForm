@@ -129,51 +129,58 @@
     {
       "id": "area1",
       "area": 1,
-      "title": "💰 ÀREA 1: FINANÇAMENT I TRESORERIA \"L'oxigen del teu negoci\"",
+      "title": "ÀREA 1: GESTIÓ ECONÒMICA I TRESORERIA",
       "max_score": 9,
-      "question_ids": ["q1_1", "q1_2", "q1_3"]
+      "question_ids": ["q1_1", "q1_2", "q1_3", "q1_4"]
     },
     {
       "id": "area2",
       "area": 2,
-      "title": "🎯 ÀREA 2: MODEL DE NEGOCI I CREIXEMENT \"El teu nord estratègic\"",
+      "title": "ÀREA 2: MODEL DE NEGOCI I ESTRATÈGIA DE CREIXEMENT",
       "max_score": 9,
-      "question_ids": ["q2_1", "q2_2", "q2_3"]
+      "question_ids": ["q2_1", "q2_2", "q2_3", "q2_4"]
     },
     {
       "id": "area3",
       "area": 3,
-      "title": "📣 ÀREA 3: COMUNICACIÓ I VENDES \"El reclam que atrau clients\"",
+      "title": "ÀREA 3: ESTRATÈGIES DE COMUNICACIÓ I FIDELITZACIÓ COMERCIAL",
       "max_score": 9,
-      "question_ids": ["q3_1", "q3_2", "q3_3"]
+      "question_ids": ["q3_1", "q3_2", "q3_3", "q3_4"]
     },
     {
       "id": "area4",
       "area": 4,
-      "title": "💻 ÀREA 4: INNOVACIÓ I DIGITALITZACIÓ \"L'eficiència que et fa guanyar temps\"",
+      "title": "ÀREA 4: INNOVACIÓ I DIGITALITZACIÓ",
       "max_score": 9,
-      "question_ids": ["q4_1", "q4_2", "q4_3"]
+      "question_ids": ["q4_1", "q4_2", "q4_3", "q4_4"]
     },
     {
       "id": "area5",
       "area": 5,
-      "title": "✨ ÀREA 5: APARADORISME I IMATGE \"L'atractiu que converteix vianants en clients\"",
+      "title": "ÀREA 5: APARADORISME I IMATGE",
       "max_score": 9,
-      "question_ids": ["q5_1", "q5_2", "q5_3"]
+      "question_ids": ["q5_1", "q5_2", "q5_3", "q5_4"]
     },
     {
       "id": "area6",
       "area": 6,
-      "title": "💶 ÀREA 6: SUBVENCIONS I AJUTS \"El combustible públic que sovint es perd\"",
+      "title": "ÀREA 6: SUBVENCIONS I RECURSOS PÚBLICS",
       "max_score": 9,
-      "question_ids": ["q6_1", "q6_2", "q6_3"]
+      "question_ids": ["q6_1", "q6_2", "q6_3", "q6_4"]
     },
     {
       "id": "area7",
       "area": 7,
-      "title": "📋 ÀREA 7: ESTRUCTURA I ORGANITZACIÓ \"El motor intern del negoci\"",
+      "title": "ÀREA 7: ESTRUCTURA I ORGANITZACIÓ",
       "max_score": 9,
-      "question_ids": ["q7_1", "q7_2", "q7_3"]
+      "question_ids": ["q7_1", "q7_2", "q7_3", "q7_4"]
+    },
+    {
+      "id": "area8",
+      "area": 8,
+      "title": "ÀREA 8: EXPECTATIVES",
+      "max_score": 0,
+      "question_ids": ["q8_1"]
     }
   ],
   "questions": [
@@ -182,12 +189,12 @@
       "number": "1.1",
       "area": 1,
       "type": "single_choice",
-      "text": "Tens els comptes del negoci separats dels teus comptes personals?",
+      "text": "Disposes de comptes bancaris diferenciats per a l'activitat professional i l'àmbit personal?",
       "options": [
-        { "id": "opt1", "label": "❌ Tot barrejat en un mateix compte", "score": 0, "description": "Exemple: Pago el lloguer de casa i del local des del mateix compte" },
-        { "id": "opt2", "label": "⚠️ Tinc 2 comptes però de vegades barrego", "score": 1, "description": "Exemple: Quan em falta al personal, faig servir diners del negoci" },
-        { "id": "opt3", "label": "✓ Comptes separats però no faig seguiment detallat", "score": 2, "description": "Exemple: Tinc 2 comptes però no controlo quant queda al del negoci" },
-        { "id": "opt4", "label": "✅ Comptes separats i reviso els números cada setmana/mes", "score": 3, "description": "Exemple: Sé exactament quants diners tinc al compte del negoci avui" }
+        { "id": "opt1", "label": "No disposo de comptes separats; es gestionen conjuntament.", "score": 0, "description": "Exemple: Pago el lloguer de casa i del local des del mateix compte" },
+        { "id": "opt2", "label": "Disposo de comptes separats però a vegades es barregen coses personals.", "score": 1, "description": "Exemple: Quan em fan falta diners, faig servir diners del negoci" },
+        { "id": "opt3", "label": "Els comptes estan diferenciats, però no faig seguiment detallat. ", "score": 2, "description": "Exemple: Tinc 2 comptes però no controlo quant queda al del negoci" },
+        { "id": "opt4", "label": "Disposo de comptes totalment independents i realitzo un control setmanal o mensual de la tresoreria.", "score": 3, "description": "Exemple: Sé exactament quants diners tinc al compte del negoci avui." }
       ]
     },
     {
@@ -195,13 +202,13 @@
       "number": "1.2",
       "area": 1,
       "type": "single_choice",
-      "text": "Saps exactament quants euros has de facturar cada dia per cobrir les despeses fixes?",
-      "hints": ["💡 Pista: Despeses fixes = lloguer, llum, autònoms, assegurances, sous... tot el que pagues encara que no venguis res."],
+      "text": "Tens identificats els ingressos necessaris per cobrir les despeses fixes?",
+      "hints": ["Les despeses fixes son tot allò que pagues encara que no venguis res, com ara el lloguer, la llum, els autònoms, les assegurances, els sous..."],
       "options": [
-        { "id": "opt1", "label": "No ho sé, no ho he calculat mai", "score": 0 },
-        { "id": "opt2", "label": "Tinc una idea aproximada (\"uns 200€/dia\")", "score": 1 },
-        { "id": "opt3", "label": "Ho vaig calcular però fa mesos que no ho actualitzo", "score": 2 },
-        { "id": "opt4", "label": "Ho tinc claríssim i ho reviso cada 3-6 mesos", "score": 3 }
+        { "id": "opt1", "label": "No he realitzat el càlcul de les despeses fixes ni de la facturació mínima.", "score": 0 },
+        { "id": "opt2", "label": "Disposo d'una estimació aproximada de la facturació necessària.", "score": 1 },
+        { "id": "opt3", "label": "Vaig realitzar el càlcul fa temps, però no l’he actualitzat considerant els preus i despeses actuals.", "score": 2 },
+        { "id": "opt4", "label": "El llindar de rendibilitat està definit i el revisa amb una periodicitat regular.", "score": 3 }
       ]
     },
     {
@@ -209,27 +216,36 @@
       "number": "1.3",
       "area": 1,
       "type": "single_choice",
-      "text": "Quan arriba el moment de pagar l'IVA, l'IRPF o el lloguer...",
+      "text": "Disposes d'una planificació de tresoreria per fer front a les obligacions fiscals i pagaments periòdics? (IVA, IRPF, lloguer, …)",
       "options": [
-        { "id": "opt1", "label": "M'agafa per sorpresa, he de fer malabars", "score": 0 },
-        { "id": "opt2", "label": "Ho recordo però no tinc diners reservats", "score": 1 },
-        { "id": "opt3", "label": "Reservo diners de vegades, però de manera irregular", "score": 2 },
-        { "id": "opt4", "label": "Tinc un sistema: cada mes guardo X% automàticament", "score": 3 }
+        { "id": "opt1", "label": "No existeix una planificació prèvia per a aquests pagaments.", "score": 0 },
+        { "id": "opt2", "label": "Conec les dates de pagament però no disposo de reserves de fons específiques.", "score": 1 },
+        { "id": "opt3", "label": "Realitzo provisions de fons de manera irregular segons la disponibilitat de caixa.", "score": 2 },
+        { "id": "opt4", "label": "Existeix un sistema automatitzat de provisió mensual per cobrir les obligacions fiscals.", "score": 3 }
       ]
     },
+    {
+      "id": "q1_4",
+      "number": "1.4",
+      "area": 1,
+      "type": "text",
+      "text": "Espai opcional per a comentaris o explicacions a les respostes anteriors:"
+    },
+    
+
 
     {
       "id": "q2_1",
       "number": "2.1",
       "area": 2,
       "type": "single_choice",
-      "text": "Si un client et pregunta: \"Per què hauria de venir aquí i no comprar-ho per Internet?\", què li respondries?",
-      "hints": ["💡 Exemples: Pel tracte personalitzat, per la selecció de producte de km 0, per la rapidesa del servei..."],
+      "text": "Què creus que fa que els teus clients et triïn a tu i no a un altre establiment de la mateixa categoria (ja sigui del barri o per internet)?",
+      "hints": ["Ens referim la proposta de valor o l’element diferencial del teu negoci respecte a la competència (entorn físic i digital). Pensa en allò que et fa especial: potser és la confiança del tracte personal, que tens productes que no es troben fàcilment, la teva experiència de molts anys, o la comoditat que ofereixes."],
       "options": [
-        { "id": "opt1", "label": "No sabria què dir, no tinc clar què ens fa diferents", "score": 0 },
-        { "id": "opt2", "label": "Tinc una idea però no la comunico als clients", "score": 1 },
-        { "id": "opt3", "label": "Ho tinc clar però no ho destaco prou (aparador, cartells...)", "score": 2 },
-        { "id": "opt4", "label": "Tenim una proposta clara i la comuniquem activament", "score": 3 }
+        { "id": "opt1", "label": "No tinc clar si hi ha un element diferencial clar respecte a altres establiments.", "score": 0 },
+        { "id": "opt2", "label": "Crec que hi ha trets diferencials, però no sé si els clients ho perceben.", "score": 1 },
+        { "id": "opt3", "label": "Crec que hi ha trets diferencials clars que els clients efectivament valoren, però no suficientment o tinc clar si els coneixen o els perceben tots", "score": 2 },
+        { "id": "opt4", "label": "La proposta de valor és percebuda pels clients, i la puc ‘observar’ en els seus comentaris, en la conversa o per recomanacions (feedback, boca-orella, …).", "score": 3 }
       ]
     },
     {
@@ -237,12 +253,13 @@
       "number": "2.2",
       "area": 2,
       "type": "single_choice",
-      "text": "Tens productes o serveis que porten mesos \"agafant pols\" (estoc mort) i que gairebé no et donen benefici?",
+      "text": "Analitzes regularment quins serveis, productes o activitats et generen benefici i quins estan \"aturats\" o et fan perdre diners?",
+      "hints": ["Pensa si tens productes que no es venen, hores que no omples, serveis que ningú demana o material/estoc que caduca al magatzem o la nevera."],
       "options": [
-        { "id": "opt1", "label": "Sí, molt estoc mort que ocupa espai i diners", "score": 0 },
-        { "id": "opt2", "label": "Tinc alguns productes que no roten bé", "score": 1 },
-        { "id": "opt3", "label": "Controlo visualment però sense dades exactes", "score": 2 },
-        { "id": "opt4", "label": "Tinc l'estoc molt controlat, roto el producte constantment", "score": 3 }
+        { "id": "opt1", "label": "No tinc clar si hi ha quelcom significatiu immobilitzat en el meu negoci, o que no genera rendibilitat.", "score": 0 },
+        { "id": "opt2", "label": "Sé què és el que no funciona (hores que no omplo o un productes que no surten), però encara no he pogut posar-hi remei.", "score": 1 },
+        { "id": "opt3", "label": "Tot i que no tinc dades que m'ho confirmin, actuo (faig liquidacions, ofertes o altres) en base a la meva percepció.", "score": 2 },
+        { "id": "opt4", "label": "Tinc un sistema (excel o un altre programa)  saber exactament què és rendible i elimino o modulo el que no rota per aprofitar millor l'espai o el temps.", "score": 3 }
       ]
     },
     {
@@ -250,14 +267,21 @@
       "number": "2.3",
       "area": 2,
       "type": "single_choice",
-      "text": "Has pensat en algun producte o servei nou que t'agradaria oferir però no saps com començar?",
-      "hints": ["💡 Exemples: Tallers, entrega a domicili, subscripcions, venda online..."],
+      "text": "Has planificat la incorporació de nous productes o serveis per diversificar l'activitat actual de l'establiment?",
+      "hints": ["(Exemples: tallers, servei de lliurament a domicili, models de subscripció o obertura de canals de venda en línia)."],
       "options": [
-        { "id": "opt1", "label": "No, mai ho he pensat", "score": 0 },
-        { "id": "opt2", "label": "Tinc idees però molt vagues, sense concretar", "score": 1 },
-        { "id": "opt3", "label": "He provat coses però sense seguiment ni avaluació", "score": 2 },
-        { "id": "opt4", "label": "Testeig novetats regularment i avaluo resultats", "score": 3 }
+        { "id": "opt1", "label": "No m’ho he plantejat mai.", "score": 0 },
+        { "id": "opt2", "label": "Disposo d'idees per a noves línies de negoci, però sense concretar.", "score": 1 },
+        { "id": "opt3", "label": "He fet alguna prova pilot o implementació puntual, però sense un seguiment ni una avaluació de resultats.", "score": 2 },
+        { "id": "opt4", "label": "Realitzo un testeig periòdic de nous productes o serveis i després avaluo la rendibilitat i l'acceptació del client.", "score": 3 }
       ]
+    },
+    {
+      "id": "q2_4",
+      "number": "2.4",
+      "area": 2,
+      "type": "text",
+      "text": "Espai opcional per a comentaris o explicacions a les respostes anteriors:"
     },
 
     {
@@ -265,25 +289,26 @@
       "number": "3.1",
       "area": 3,
       "type": "single_choice",
-      "text": "Tens el telèfon o correu dels teus clients per avisar-los de novetats, tancaments o promocions?",
+      "text": "Disposes d'un registre de clients per a l’enviament de comunicacions comercials o informatives?",
       "options": [
-        { "id": "opt1", "label": "No, espero que passin i vegin el cartell a la porta", "score": 0 },
-        { "id": "opt2", "label": "Tinc alguns contactes però no organitzats", "score": 1 },
-        { "id": "opt3", "label": "Tinc una llista bàsica (Excel, llibreta...)", "score": 2 },
-        { "id": "opt4", "label": "Base de dades organitzada i l'uso regularment", "score": 3 }
+        { "id": "opt1", "label": "No disposo d'eines de captació/registre de dades de contacte del clients.", "score": 0 },
+        { "id": "opt2", "label": "Disposo de dades de contacte de manera fragmentada o no organitzada.", "score": 1 },
+        { "id": "opt3", "label": "Existeix una base de dades bàsica (full de càlcul o registre d'encàrrecs).", "score": 2 },
+        { "id": "opt4", "label": "Gestiono una base de dades estructurada i s'utilitza regularment per a accions comercials.", "score": 3 }
       ]
     },
     {
       "id": "q3_2",
       "number": "3.2",
       "area": 3,
-      "type": "single_choice",
-      "text": "Com fas servir el WhatsApp per a la feina?",
+      "type": "multiple_choice",
+      "text": "Quina mena de comunicacions envies als clients registrats? (Selecciona totes les que apliquin)",
       "options": [
-        { "id": "opt1", "label": "No el faig servir per vendre", "score": 0 },
-        { "id": "opt2", "label": "Faig servir el meu WhatsApp personal per encàrrecs puntuals", "score": 1 },
-        { "id": "opt3", "label": "Tinc WhatsApp Business però sense configurar (catàleg, horaris...)", "score": 2 },
-        { "id": "opt4", "label": "Tinc WhatsApp Business amb catàleg, horaris i respostes automàtiques", "score": 3 }
+        { "id": "opt1", "label": "Com he dit abans, no disposo d'eines de captació/registre de dades de contacte del clients", "score": 0 },
+        { "id": "opt2", "label": "Envio comunicacions puntuals, per resoldre dubtes concrets o cites quan ells m'ho demanen ", "score": 1 },
+        { "id": "opt3", "label": "Envio informació de servei (canvis d'horari, vacances, confirmació de comandes).", "score": 1 },
+        { "id": "opt4", "label": "Envio de forma periòdica novetats, catàlegs, promocions o contingut d'interès per incentivar que tornin a la botiga o al centre.", "score": 1 },
+        { "id": "opt5", "label": "No aplica.", "score": 0 }
       ]
     },
     {
@@ -293,11 +318,18 @@
       "type": "single_choice",
       "text": "Amb quina freqüència publiques a xarxes socials (Instagram, Facebook...) o et comuniques amb clients?",
       "options": [
-        { "id": "opt1", "label": "Gairebé mai, no tinc xarxes socials del negoci", "score": 0 },
-        { "id": "opt2", "label": "Tinc xarxes però publico molt ocasionalment (1-2 cops/mes)", "score": 1 },
-        { "id": "opt3", "label": "Publico regularment però sense planificació (quan me'n recordo)", "score": 2 },
-        { "id": "opt4", "label": "Tinc un pla de continguts i publico de manera consistent", "score": 3 }
+        { "id": "opt1", "label": "No disposo de xarxes socials del negoci", "score": 0 },
+        { "id": "opt2", "label": "Disposo de xarxes, i publicació ocasionalment", "score": 1 },
+        { "id": "opt3", "label": "Realitzo publicacions amb regularitat", "score": 2 },
+        { "id": "opt4", "label": "Mantinc una presència constant i consistent en els meus canals de comunicació", "score": 3 }
       ]
+    },
+    {
+      "id": "q3_4",
+      "number": "3.4",
+      "area": 3,
+      "type": "text",
+      "text": "Espai opcional per a comentaris o explicacions a les respostes anteriors:"
     },
 
     {
@@ -305,12 +337,12 @@
       "number": "4.1",
       "area": 4,
       "type": "single_choice",
-      "text": "Has buscat el teu negoci a Google Maps des d'un mòbil? Què hi veus?",
+      "text": "Tens optimitzada la presència digital del seu negoci en cercadors i mapes (Google Maps / Google Business Profile)?",
       "options": [
-        { "id": "opt1", "label": "No surto al mapa, els clients no em poden trobar digitalment", "score": 0 },
-        { "id": "opt2", "label": "Surto però amb dades velles, fotos dolentes o sense respondre ressenyes", "score": 1 },
-        { "id": "opt3", "label": "Surto amb informació bàsica però sense optimitzar", "score": 2 },
-        { "id": "opt4", "label": "Fitxa completa: horaris actualitzats, telèfon, fotos recents, respostes actives", "score": 3 }
+        { "id": "opt1", "label": "El negoci no està registrat en cercadors digitals ni mapes.", "score": 0 },
+        { "id": "opt2", "label": "El perfil està actiu però conté dades desactualitzades, imatges no professionals o valoracions sense resposta.", "score": 1 },
+        { "id": "opt3", "label": "El perfil disposa de la informació bàsica però no s'actualitza de manera proactiva.", "score": 2 },
+        { "id": "opt4", "label": "El perfil està totalment optimitzat amb dades actualitzades, interacció amb ressenyes i imatges recents.", "score": 3 }
       ]
     },
     {
@@ -318,12 +350,12 @@
       "number": "4.2",
       "area": 4,
       "type": "single_choice",
-      "text": "Quines facilitats de pagament ofereixes als clients?",
+      "text": "Quins mètodes i facilitats de pagament disposa el teu establiment?",
       "options": [
-        { "id": "opt1", "label": "Només efectiu (he perdut vendes per això)", "score": 0 },
+        { "id": "opt1", "label": "S'accepta exclusivament el pagament en efectiu.", "score": 0 },
         { "id": "opt2", "label": "Efectiu i targeta amb mínim de compra", "score": 1 },
-        { "id": "opt3", "label": "Efectiu, targeta sense mínim i Bizum", "score": 2 },
-        { "id": "opt4", "label": "Màximes opcions: efectiu, targeta, Bizum, Apple/Google Pay", "score": 3 }
+        { "id": "opt3", "label": "S'accepta pagament amb targeta (sense mínim) i s'han incorporat solucions de pagament mòbil immediat (com Bizum).", "score": 2 },
+        { "id": "opt4", "label": "Disposo de diversos mètodes de pagament: efectiu, targeta, Bizum i pagaments contactless via smartphone (Apple Pay, Google Pay, etc.).", "score": 3 }
       ]
     },
     {
@@ -331,13 +363,27 @@
       "number": "4.3",
       "area": 4,
       "type": "single_choice",
-      "text": "Fas servir alguna eina digital per gestionar el negoci?",
-      "hints": ["💡 Exemples: TPV modern, programa de gestió, full de càlcul per estocs..."],
+      "text": "Utilitzes sistemes digitals per a la gestió operativa i administrativa del negoci?",
+      "hints": ["Per sistemes digitals ens referim a: Terminal Punt de Venda (TPV) avançat, programari de gestió (ERP), CRM o control d'estocs digitalitzat."],
       "options": [
-        { "id": "opt1", "label": "Tot en paper o al cap, sense sistema digital", "score": 0 },
-        { "id": "opt2", "label": "Faig servir Excel o similar de manera bàsica", "score": 1 },
-        { "id": "opt3", "label": "Tinc alguna eina però no l'aprofito del tot", "score": 2 },
-        { "id": "opt4", "label": "Faig servir eines digitals que m'ajuden molt (TPV, CRM, gestió...)", "score": 3 }
+        { "id": "opt1", "label": "Gestió manual (paper i llapis) o sense registre sistemàtic.", "score": 0 },
+        { "id": "opt2", "label": "Eines bàsiques com fulls de càlcul (Excel) per a tasques puntuals.", "score": 1 },
+        { "id": "opt3", "label": "Tinc un programari o TPV, però només l'utilitzo per cobrar.", "score": 2 },
+        { "id": "opt4", "label": "Utilitzo diverses eines per a la gestió del negoci: per la captació de client, per les finances, per controlar estocs", "score": 3 }
+      ]
+    },
+    {
+      "id": "q4_4",
+      "number": "4.4",
+      "area": 4,
+      "type": "single_choice",
+      "text": "sistema de gestió o de facturació preparat per a la nova normativa VeriFactu de facturació electrònica obligatòria?",
+      "hints": ["La normativa VeriFactu serà obligatòria per empreses i autònoms i requereix que el teu programari o TPV estigui certificat per l'Agència Tributària."],
+      "options": [
+        { "id": "opt1", "label": "No conec la normativa ni sé si el meu sistema actual serà legal.", "score": 0 },
+        { "id": "opt2", "label": "En tinc constància, però encara no he parlat amb el proveïdor o el gestor per adaptar-me.", "score": 1 },
+        { "id": "opt3", "label": "El meu proveïdor de programari/TPV m'ha confirmat que s'està adaptant, però encara no està operatiu.", "score": 2 },
+        { "id": "opt4", "label": "El meu programari ja està certificat, compleix la normativa i permet l'enviament de dades si es requerís.", "score": 3 }
       ]
     },
 
@@ -346,12 +392,14 @@
       "number": "5.1",
       "area": 5,
       "type": "single_choice",
-      "text": "Si un vianant passés corrent per davant del teu local, sabria què vens en menys de 3 segons?",
+      "text": "L’aparador del teu establiment comunica de manera clara què ofereixes als vianants, i els crida l’atenció?",
+      "hints": ["Si algú que passa pel carrer busca alguna cosa que ofereixes, valora si l’aparador comunica clarament què vens i si i sap captar la seva atenció"],
       "options": [
-        { "id": "opt1", "label": "No, l'aparador està confús o massa ple", "score": 0 },
-        { "id": "opt2", "label": "Més o menys, però no destaca prou", "score": 1 },
-        { "id": "opt3", "label": "Sí, però podria millorar l'impacte visual", "score": 2 },
-        { "id": "opt4", "label": "Totalment, l'aparador és clar i impactant", "score": 3 }
+        { "id": "opt1", "label": "L'aparador gairebé no ha canviat des de que vam obrir. Ja explica el que fem.", "score": 0 },
+        { "id": "opt2", "label": "Actualitzo l’aparador per temporada (per exemple al Nadal).", "score": 1 },
+        { "id": "opt3", "label": "Actualitzo els productes/serveis que mostra l'aparador de forma regular, per mantenir-lo al dia.", "score": 2 },
+        { "id": "opt4", "label": "Considero l’aparador una element clau del meu negoci i li dedico temps de forma constant.", "score": 3 },
+        { "id": "opt5", "label": "No aplica.", "score": 0 }
       ]
     },
     {
@@ -359,13 +407,13 @@
       "number": "5.2",
       "area": 5,
       "type": "single_choice",
-      "text": "Sincerament, hi ha racons al teu local que fan \"soroll visual\"?",
-      "hints": ["💡 Exemples: Cartells vells amb cel·lo, cables a la vista, caixes visibles, pols..."],
+      "text": "L’espai interior del teu local és ordenat i facilita que els clients trobin el que busquen i es sentin còmodes?",
+      "hints": ["Valora l’ordre i la claredat de l’espai interior: per exemple si està lliure d'elements que puguin distorsionar la imatge professional, com ara rètols obsolets, cablejat visible o acumulació de material no comercial"],
       "options": [
-        { "id": "opt1", "label": "Sí, tinc \"zones traster\" visibles pels clients", "score": 0 },
-        { "id": "opt2", "label": "Hi ha algunes coses desendreçades però no greu", "score": 1 },
-        { "id": "opt3", "label": "El local està força endreçat, detalls menors", "score": 2 },
-        { "id": "opt4", "label": "El local està impecable, ordre total", "score": 3 }
+        { "id": "opt1", "label": "Hi ha zones de magatzem visibles o hi ha objectes acumulats des de fa temps en zones obertes al públic.", "score": 0 },
+        { "id": "opt2", "label": "Ara mateix hi ha un cert desordre puntual o elements de comunicació visual (cartelleria, rètols) que cal actualitzar.", "score": 1 },
+        { "id": "opt3", "label": "El local té un ordre general correcte, tot i que voldria millorar alguns aspectes.", "score": 2 },
+        { "id": "opt4", "label": "Cuido molt tots els detalls de l’interior del local, tot està en ordre i ofereixo una imatge molt cuidada en tot moment.", "score": 3 }
       ]
     },
     {
@@ -373,13 +421,20 @@
       "number": "5.3",
       "area": 5,
       "type": "single_choice",
-      "text": "Tens un sistema d'il·luminació que ressalta els productes o zones clau?",
+      "text": "Disposes d'un sistema d'il·luminació que ressalti els productes o les zones clau del local?",
       "options": [
-        { "id": "opt1", "label": "Il·luminació deficient o uniforme sense focus", "score": 0 },
-        { "id": "opt2", "label": "Llum bàsica, funcional però sense estratègia", "score": 1 },
-        { "id": "opt3", "label": "Il·luminació correcta però millorable", "score": 2 },
-        { "id": "opt4", "label": "Il·luminació estratègica que guia el client", "score": 3 }
+        { "id": "opt1", "label": "La il·luminació és antiga i requereix revisió.", "score": 0 },
+        { "id": "opt2", "label": "Es disposa d'una il·luminació bàsica i funcional.", "score": 1 },
+        { "id": "opt3", "label": "La il·luminació és adequada, però millorable.", "score": 2 },
+        { "id": "opt4", "label": "Es disposa d'un disseny lumínic estratègic per la tasca del comerç.", "score": 3 }
       ]
+    },
+    {
+      "id": "q5_4",
+      "number": "5.4",
+      "area": 5,
+      "type": "text",
+      "text": "Espai opcional per a comentaris o explicacions a les respostes anteriors:"
     },
 
     {
@@ -387,12 +442,13 @@
       "number": "6.1",
       "area": 6,
       "type": "single_choice",
-      "text": "Tens el Certificat Digital (idCAT, idCAT Mòbil) actiu i saps fer-lo servir?",
+      "text": "Coneixes convocatòries d'ajuts i subvencions de les administracions públiques?",
+      "hints": ["Exemples: Kit Digital, Aixeca el teu negoci, millores energètiques..."],
       "options": [
-        { "id": "opt1", "label": "No en tinc o no sé de què em parles", "score": 0 },
-        { "id": "opt2", "label": "El tinc però no sé com s'instal·la o em fa por", "score": 1 },
-        { "id": "opt3", "label": "El tinc i l'he fet servir alguna vegada", "score": 2 },
-        { "id": "opt4", "label": "El faig servir regularment per tràmits (Hisenda, Seguretat Social...)", "score": 3 }
+        { "id": "opt1", "label": "No segueixo convocatòries de subvencions o ajudes.", "score": 0 },
+        { "id": "opt2", "label": "Conec l'existència d'ajuts però no n'he sol·licitat cap.", "score": 1 },
+        { "id": "opt3", "label": "He sol.licitat ajuts de manera puntual.", "score": 2 },
+        { "id": "opt4", "label": "Consulto periòdicament els canals oficials i participo activament en les convocatòries alineades a les necessitats del meu negoci.", "score": 3 }
       ]
     },
     {
@@ -400,40 +456,35 @@
       "number": "6.2",
       "area": 6,
       "type": "single_choice",
-      "text": "En els últims 2 anys, has demanat algun ajut públic?",
+      "text": "Quin és el teu grau de coneixement i ús dels serveis i recursos gratuïts que Barcelona Activa posa a disposició del teixit comercial?",
       "hints": ["💡 Exemples: Kit Digital, Aixeca el teu negoci, millores energètiques..."],
       "options": [
-        { "id": "opt1", "label": "No, perquè em sembla massa complicat", "score": 0 },
-        { "id": "opt2", "label": "Ho he mirat però no he acabat sol·licitant-ho", "score": 1 },
-        { "id": "opt3", "label": "He demanat algun però sense èxit", "score": 2 },
-        { "id": "opt4", "label": "Sí, n'he aprofitat algun", "score": 3 }
+        { "id": "opt1", "label": "No tinc coneixement dels serveis i recursos específics que ofereix Barcelona Activa.", "score": 0 },
+        { "id": "opt2", "label": "N’he sentit a parlar, però no sé quins son.", "score": 1 },
+        { "id": "opt3", "label": "He provat algun.", "score": 2 },
+        { "id": "opt4", "label": "Els utilitzo normalment.", "score": 3 }
       ]
     },
     {
       "id": "q6_3",
       "number": "6.3",
       "area": 6,
-      "type": "single_choice",
-      "text": "Coneixes els recursos gratuïts que ofereix Barcelona Activa per comerços?",
-      "options": [
-        { "id": "opt1", "label": "No sabia que existien", "score": 0 },
-        { "id": "opt2", "label": "N'he sentit parlar però no sé què ofereixen", "score": 1 },
-        { "id": "opt3", "label": "Conec alguns però no els he fet servir", "score": 2 },
-        { "id": "opt4", "label": "Els conec i n'he fet servir algun", "score": 3 }
-      ]
+      "type": "text",
+      "text": "Espai opcional per a comentaris o explicacions a les respostes anteriors:"
     },
 
     {
       "id": "q7_1",
       "number": "7.1",
       "area": 7,
-      "type": "single_choice",
-      "text": "Tens els rols i tasques clares si treballes amb més persones?",
+      "type": "multiple_choice",
+      "text": "Disposes d'una definició clara de rols i responsabilitats en la gestió diària de l'establiment?",
+      "hints": ["Marca tot el que apliqui"],
       "options": [
-        { "id": "opt1", "label": "Treballo sol/a o tot està desorganitzat", "score": 0 },
-        { "id": "opt2", "label": "Cada un fa una mica de tot sense claredat", "score": 1 },
-        { "id": "opt3", "label": "Hi ha certa distribució però informal", "score": 2 },
-        { "id": "opt4", "label": "Rols clars i documentats per a cada persona", "score": 3 }
+        { "id": "opt1", "label": "'activitat és unipersonal.", "score": 0 },
+        { "id": "opt2", "label": "Hi ha personal subcontractat puntualment o proveïdors.", "score": 0 },
+        { "id": "opt3", "label": "Hi ha una distribució de responsabilitats establerta de manera verbal, amb un pressupost o informal.", "score": 2 },
+        { "id": "opt4", "label": "Els rols i les funcions estan clarament definits i documentats per a cada perfil professional del negoci.", "score": 3 }
       ]
     },
     {
@@ -441,13 +492,13 @@
       "number": "7.2",
       "area": 7,
       "type": "single_choice",
-      "text": "Dediques temps regular a planificar i revisar com va el negoci?",
-      "hints": ["💡 Exemples: Revisar números, planificar compres, avaluar què funciona..."],
+      "text": "Dediques espais de temps per a la planificació estratègica i a la revisió d'indicadors del negoci?",
+      "hints": ["(Exemples: anàlisi de vendes, planificació de compres, avaluació d'objectius o revisió de costos)."],
       "options": [
-        { "id": "opt1", "label": "No, vaig al dia responent a urgències", "score": 0 },
-        { "id": "opt2", "label": "De tant en tant, quan puc", "score": 1 },
-        { "id": "opt3", "label": "Ho faig però sense regularitat (quan hi ha problemes)", "score": 2 },
-        { "id": "opt4", "label": "Tinc moments fixos setmanals/mensuals per planificar", "score": 3 }
+        { "id": "opt1", "label": "La gestió és purament operativa i reactiva davant les urgències diàries.", "score": 0 },
+        { "id": "opt2", "label": "Reviso de tant en tant l’estat del negoci sense una metodologia definida.", "score": 1 },
+        { "id": "opt3", "label": "Reviso la planificació puntualment de forma reactiva quan hi ha incidències o problemes concrets.", "score": 2 },
+        { "id": "opt4", "label": "Disposo de moments fixos en el calendari (setmanals o mensuals) per a la planificació i avaluació de l’estat del comerç.", "score": 3 }
       ]
     },
     {
@@ -455,14 +506,30 @@
       "number": "7.3",
       "area": 7,
       "type": "single_choice",
-      "text": "Tens protocols o procediments per les tasques habituals?",
-      "hints": ["💡 Exemples: Com obrir/tancar, com atendre queixes, com fer inventari..."],
+      "text": "Tens establerts protocols o procediments normalitzats per a les tasques habituals de l'activitat?",
+      "hints": ["(Exemples: tasques d’obertura i tancament, gestió de reclamacions, control d'inventari o atenció al client)"],
       "options": [
-        { "id": "opt1", "label": "No, cada dia és diferent segons qui treballa", "score": 0 },
-        { "id": "opt2", "label": "Ho faig sempre igual però no està documentat", "score": 1 },
-        { "id": "opt3", "label": "Tinc alguns processos clars però no tots", "score": 2 },
-        { "id": "opt4", "label": "Protocols documentats per les tasques clau", "score": 3 }
+        { "id": "opt1", "label": "Treballo sol, no tinc protocols.", "score": 0 },
+        { "id": "opt2", "label": "Som diverses persones, fem tots una mica de tot.", "score": 0 },
+        { "id": "opt3", "label": "Cadascú té un rol, però els processos no estan formalitzats ni documentats.", "score": 1 },
+        { "id": "opt4", "label": "Es disposa de processos clars per a algunes àrees clau.", "score": 2 },
+        { "id": "opt5", "label": "Existeixen protocols d'actuació documentats i accessibles per a totes les tasques crítiques del negoci. ", "score": 3 }
       ]
+    },
+    {
+      "id": "q7_4",
+      "number": "7.4",
+      "area": 7,
+      "type": "text",
+      "text": "Espai opcional per a comentaris o explicacions a les respostes anteriors:"
+    },
+    {
+      "id": "q8_1",
+      "number": "8.1",
+      "area": 8,
+      "type": "text",
+      "text": "Amb la finalitat d'optimitzar el pla d'acompanyament, descriu breument quines són les seves expectatives respecte a aquest programa. ",
+      "hints": ["Per exemple: quines àrees de millora voldries treballar, coneixements tècnics que desitges adquirir, necessitats temporals,...). "]
     }
   ],
   "result_template": {

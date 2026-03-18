@@ -15,6 +15,7 @@ CREATE TABLE diagnostic_sessions (
   current_area INTEGER,
   
   -- Intro data (denormalized for easy querying)
+  id_tiquet TEXT,
   business_name TEXT,
   contact_name TEXT,
   email TEXT,
@@ -43,7 +44,15 @@ CREATE TABLE diagnostic_answers (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   session_id UUID REFERENCES diagnostic_sessions(id) ON DELETE CASCADE,
   question_id TEXT NOT NULL,
-  option_id TEXT NOT NULL,
+  -- Single choice answer
+  option_id TEXT,
+  -- Multiple choice answer
+  option_ids JSONB,
+  -- Free text answer
+  answer_text TEXT,
+  -- Type of answer stored
+  answer_type TEXT DEFAULT 'single_choice' CHECK (answer_type IN ('single_choice', 'multiple_choice', 'text')),
+  -- Score to use for aggregations (for multiple_choice this is the sum)
   score INTEGER NOT NULL,
   area INTEGER NOT NULL,
   answered_at TIMESTAMPTZ DEFAULT NOW(),

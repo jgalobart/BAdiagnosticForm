@@ -1,7 +1,23 @@
 import QuestionCard from './QuestionCard';
 
 export default function AreaSection({ area, questions, answers, onAnswer }) {
-  const answeredCount = questions.filter(q => answers[q.id]).length;
+  const isQuestionAnswered = (question) => {
+    const a = answers[question.id];
+    if (!a) return false;
+    const type = question.type || a.type || 'single_choice';
+
+    if (type === 'text') {
+      return typeof a.text === 'string' && a.text.trim().length > 0;
+    }
+
+    if (type === 'multiple_choice') {
+      return Array.isArray(a.optionIds) && a.optionIds.length > 0;
+    }
+
+    return !!a.optionId;
+  };
+
+  const answeredCount = questions.filter((q) => isQuestionAnswered(q)).length;
   const totalQuestions = questions.length;
   const isComplete = answeredCount === totalQuestions;
 
@@ -25,7 +41,7 @@ export default function AreaSection({ area, questions, answers, onAnswer }) {
           <QuestionCard
             key={question.id}
             question={question}
-            selectedOption={answers[question.id]?.optionId}
+            answer={answers[question.id]}
             onSelect={onAnswer}
           />
         ))}

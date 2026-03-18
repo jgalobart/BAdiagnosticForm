@@ -12,23 +12,42 @@ export default function QuestionnaireForm({ areas, questions, sessionId, onCompl
   const areaQuestions = questions.filter(q => q.area === currentArea.area);
   
   const totalQuestions = questions.length;
-  const answeredQuestions = Object.keys(answers).length;
 
-  const handleAnswer = async (questionId, optionId, score) => {
+  const handleAnswer = async (questionId, answer) => {
     const question = questions.find(q => q.id === questionId);
-    
+
     setAnswers(prev => ({
       ...prev,
-      [questionId]: { optionId, score }
+      [questionId]: answer
     }));
 
-    if (sessionId) {
-      await saveAnswer(sessionId, questionId, optionId, score, question?.area);
+    if (sessionId && question) {
+      await saveAnswer(sessionId, question, answer);
     }
   };
 
+  const isQuestionAnswered = (question) => {
+    const a = answers[question.id];
+    if (!a) return false;
+    const type = question.type || a.type || 'single_choice';
+
+    if (type === 'text') {
+      return typeof a.text === 'string' && a.text.trim().length > 0;
+    }
+
+    if (type === 'multiple_choice') {
+      return Array.isArray(a.optionIds) && a.optionIds.length > 0;
+    }
+
+    return !!a.optionId;
+  };
+
+  const answeredQuestions = useMemo(() => {
+    return questions.reduce((count, q) => (isQuestionAnswered(q) ? count + 1 : count), 0);
+  }, [answers, questions]);
+
   const isCurrentAreaComplete = () => {
-    return areaQuestions.every(q => answers[q.id]);
+    return areaQuestions.every(q => isQuestionAnswered(q));
   };
 
   const canGoNext = () => {
@@ -65,7 +84,7 @@ export default function QuestionnaireForm({ areas, questions, sessionId, onCompl
         ...area,
         score: totalScore,
         maxScore: area.max_score,
-        percentage: Math.round((totalScore / area.max_score) * 100)
+        percentage: area.max_score ? Math.round((totalScore / area.max_score) * 100) : 0
       };
     });
 

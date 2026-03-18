@@ -11,7 +11,7 @@ export const supabase = supabaseUrl && supabaseAnonKey
   ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
 
-export const createSession = async () => {
+export const createSession = async (idTiquet = '') => {
   if (!supabase) return null;
   
   const { data, error } = await supabase
@@ -19,6 +19,7 @@ export const createSession = async () => {
     .insert({
       status: 'started',
       started_at: new Date().toISOString(),
+      id_tiquet: idTiquet || null,
     })
     .select()
     .single();
@@ -56,19 +57,35 @@ export const saveIntroData = async (sessionId, introData) => {
   return data;
 };
 
-export const saveAnswer = async (sessionId, questionId, optionId, score, currentArea) => {
+export const saveAnswer = async (sessionId, question, answer) => {
   if (!supabase || !sessionId) return null;
+
+  const type = question?.type || answer?.type || 'single_choice';
+  const currentArea = question?.area;
+
+  const payload = {
+    session_id: sessionId,
+    question_id: question.id,
+    area: currentArea,
+    answered_at: new Date().toISOString(),
+    answer_type: type,
+    score: Number(answer?.score || 0),
+    option_id: null,
+    option_ids: null,
+    answer_text: null,
+  };
+
+  if (type === 'single_choice') {
+    payload.option_id = answer.optionId;
+  } else if (type === 'multiple_choice') {
+    payload.option_ids = answer.optionIds || [];
+  } else if (type === 'text') {
+    payload.answer_text = answer.text || '';
+  }
 
   const { data, error } = await supabase
     .from('diagnostic_answers')
-    .upsert({
-      session_id: sessionId,
-      question_id: questionId,
-      option_id: optionId,
-      score: score,
-      area: currentArea,
-      answered_at: new Date().toISOString(),
-    }, {
+    .upsert(payload, {
       onConflict: 'session_id,question_id'
     })
     .select()

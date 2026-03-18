@@ -1,19 +1,18 @@
-import { useMemo, useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { 
   RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, 
   ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Cell, Tooltip 
 } from 'recharts';
 import { 
   Trophy, AlertTriangle, TrendingUp, Clock, Download, 
-  CheckCircle2, AlertCircle, Target, Mail, Loader2, CheckCheck 
+  CheckCircle2, AlertCircle, Target 
 } from 'lucide-react';
 import { pdf } from '@react-pdf/renderer';
 import ResultsPDF from './ResultsPDF';
-import { sendResultsEmail } from '../lib/emailService';
 
-export default function ResultsReport({ formData, answers, areas, questions, scoring, sessionId }) {
-  const [emailStatus, setEmailStatus] = useState('idle');
-  const [emailSent, setEmailSent] = useState(false);
+export default function ResultsReport({ answers, areas, questions, scoring, sessionId, idTiquet }) {
+
+  const scorableAreas = useMemo(() => areas.filter((a) => (a.max_score || 0) > 0), [areas]);
 
   const results = useMemo(() => {
     const areaScores = {};
@@ -27,7 +26,7 @@ export default function ResultsReport({ formData, answers, areas, questions, sco
         ...area,
         score: totalScore,
         maxScore: area.max_score,
-        percentage: Math.round((totalScore / area.max_score) * 100)
+        percentage: area.max_score ? Math.round((totalScore / area.max_score) * 100) : 0
       };
     });
 
@@ -43,6 +42,7 @@ export default function ResultsReport({ formData, answers, areas, questions, sco
     const globalThreshold = getThreshold(totalScore, scoring.global.thresholds);
     
     const priorityAreas = Object.values(areaScores)
+      .filter((a) => (a.maxScore || 0) > 0)
       .sort((a, b) => a.score - b.score)
       .slice(0, 3);
 
@@ -56,13 +56,13 @@ export default function ResultsReport({ formData, answers, areas, questions, sco
     };
   }, [answers, areas, questions, scoring]);
 
-  const radarData = areas.map(area => ({
+  const radarData = scorableAreas.map(area => ({
     area: `Àrea ${area.area}`,
     score: results.areaScores[area.area].score,
     fullMark: area.max_score
   }));
 
-  const barData = areas.map(area => {
+  const barData = scorableAreas.map(area => {
     const areaScore = results.areaScores[area.area];
     return {
       name: `Àrea ${area.area}`,
@@ -73,6 +73,7 @@ export default function ResultsReport({ formData, answers, areas, questions, sco
   });
 
   const getColorByScore = (score, max) => {
+    if (!max) return '#9ca3af';
     const percentage = (score / max) * 100;
     if (percentage <= 33) return '#dc2626';
     if (percentage <= 66) return '#eab308';
@@ -80,6 +81,7 @@ export default function ResultsReport({ formData, answers, areas, questions, sco
   };
 
   const getStatusIcon = (score, max) => {
+    if (!max) return <CheckCircle2 className="w-5 h-5 text-gray-400" />;
     const percentage = (score / max) * 100;
     if (percentage <= 33) return <AlertCircle className="w-5 h-5 text-red-500" />;
     if (percentage <= 66) return <AlertTriangle className="w-5 h-5 text-yellow-500" />;
@@ -87,56 +89,22 @@ export default function ResultsReport({ formData, answers, areas, questions, sco
   };
 
   const getStatusLabel = (score, max) => {
+    if (!max) return { text: 'No puntuable', color: 'bg-gray-100 text-gray-700' };
     const percentage = (score / max) * 100;
     if (percentage <= 33) return { text: 'Prioritat ALTA', color: 'bg-red-100 text-red-700' };
     if (percentage <= 66) return { text: 'Prioritat MITJANA', color: 'bg-yellow-100 text-yellow-700' };
     return { text: 'Ben encaminat', color: 'bg-green-100 text-green-700' };
   };
 
-  useEffect(() => {
-    const sendEmail = async () => {
-      if (emailSent || emailStatus === 'sending') return;
-      
-      setEmailStatus('sending');
-      
-      try {
-        const pdfDoc = <ResultsPDF formData={formData} results={results} areas={areas} />;
-        const pdfBlob = await pdf(pdfDoc).toBlob();
-        
-        const reader = new FileReader();
-        reader.onloadend = async () => {
-          const base64 = reader.result.split(',')[1];
-          
-          const response = await sendResultsEmail(sessionId, formData, results, base64);
-          
-          if (response) {
-            setEmailStatus('sent');
-            setEmailSent(true);
-          } else {
-            setEmailStatus('error');
-          }
-        };
-        reader.readAsDataURL(pdfBlob);
-      } catch (error) {
-        console.error('Error generating PDF or sending email:', error);
-        setEmailStatus('error');
-      }
-    };
-
-    if (results && formData && !emailSent) {
-      sendEmail();
-    }
-  }, [results, formData, sessionId, emailSent, emailStatus, areas]);
-
   const handleDownloadPDF = async () => {
     try {
-      const pdfDoc = <ResultsPDF formData={formData} results={results} areas={areas} />;
+      const pdfDoc = <ResultsPDF results={results} areas={areas} idTiquet={idTiquet} />;
       const pdfBlob = await pdf(pdfDoc).toBlob();
       
       const url = URL.createObjectURL(pdfBlob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `informe-diagnosi-${formData.business_name?.replace(/\s+/g, '-').toLowerCase() || 'comerc'}.pdf`;
+      link.download = `informe-diagnosi-comerc.pdf`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -153,7 +121,12 @@ export default function ResultsReport({ formData, answers, areas, questions, sco
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-10 text-white">
             <h1 className="text-3xl font-bold mb-2">Informe de Diagnosi</h1>
-            <p className="text-blue-100 text-lg">{formData.business_name}</p>
+            <p className="text-blue-100 text-lg">Qüestionari d'autoavaluació</p>
+            {idTiquet && (
+              <p className="text-blue-100 text-sm mt-2">
+                <span className="font-semibold">idTiquet:</span> {idTiquet}
+              </p>
+            )}
           </div>
 
           <div className="p-8">
@@ -277,7 +250,7 @@ export default function ResultsReport({ formData, answers, areas, questions, sco
           </div>
 
           <div className="grid gap-3">
-            {areas.map(area => {
+            {scorableAreas.map(area => {
               const areaScore = results.areaScores[area.area];
               const status = getStatusLabel(areaScore.score, areaScore.maxScore);
               return (
@@ -315,40 +288,6 @@ export default function ResultsReport({ formData, answers, areas, questions, sco
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded bg-green-500"></div>
               <span className="text-sm text-gray-600">Ben encaminat (7-9 punts)</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Email Status */}
-        <div className="bg-white rounded-2xl shadow-lg p-6">
-          <div className="flex items-center gap-4">
-            <div className={`p-3 rounded-xl ${
-              emailStatus === 'sent' ? 'bg-green-100' :
-              emailStatus === 'error' ? 'bg-red-100' :
-              'bg-blue-100'
-            }`}>
-              {emailStatus === 'sending' ? (
-                <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
-              ) : emailStatus === 'sent' ? (
-                <CheckCheck className="w-8 h-8 text-green-600" />
-              ) : emailStatus === 'error' ? (
-                <Mail className="w-8 h-8 text-red-600" />
-              ) : (
-                <Mail className="w-8 h-8 text-blue-600" />
-              )}
-            </div>
-            <div>
-              <p className="text-gray-500 text-sm">Correu electrònic</p>
-              <p className={`text-lg font-medium ${
-                emailStatus === 'sent' ? 'text-green-700' :
-                emailStatus === 'error' ? 'text-red-700' :
-                'text-gray-800'
-              }`}>
-                {emailStatus === 'sending' ? 'Enviant informe...' :
-                 emailStatus === 'sent' ? `Enviat a ${formData.email}` :
-                 emailStatus === 'error' ? 'Error en enviar. Descarrega el PDF manualment.' :
-                 'Preparant enviament...'}
-              </p>
             </div>
           </div>
         </div>
