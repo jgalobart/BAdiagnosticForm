@@ -215,6 +215,29 @@ const styles = StyleSheet.create({
     color: '#6b7280',
     marginBottom: 2,
   },
+  textResponseSection: {
+    marginTop: 20,
+    paddingTop: 20,
+    borderTopWidth: 2,
+    borderTopColor: '#e5e7eb',
+  },
+  textResponseItem: {
+    marginBottom: 15,
+    padding: 12,
+    backgroundColor: '#f9fafb',
+    borderRadius: 6,
+  },
+  textResponseQuestion: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#1f2937',
+    marginBottom: 6,
+  },
+  textResponseAnswer: {
+    fontSize: 9,
+    color: '#4b5563',
+    lineHeight: 1.5,
+  },
 });
 
 const getStatusStyle = (score, max) => {
@@ -230,9 +253,43 @@ const getThresholdStyle = (key) => {
   return styles.thresholdGreen;
 };
 
-export default function ResultsPDF({ results, areas, idTiquet }) {
+export default function ResultsPDF({ results, areas, idTiquet, questions, answers }) {
   const { totalScore, globalThreshold, priorityAreas, areaScores } = results;
   const scorableAreas = areas.filter((a) => (a.max_score || 0) > 0);
+
+  const formatAnswer = (question, answer) => {
+    if (!answer) return null;
+
+    const type = question.type || answer.type || 'single_choice';
+
+    if (type === 'text') {
+      return answer.text?.trim() || null;
+    }
+
+    if (type === 'multiple_choice') {
+      if (!Array.isArray(answer.optionIds) || answer.optionIds.length === 0) return null;
+      const selectedOptions = question.options
+        ?.filter(opt => answer.optionIds.includes(opt.id))
+        .map(opt => opt.label || opt.text)
+        .join(', ') || null;
+      return selectedOptions;
+    }
+
+    if (type === 'single_choice') {
+      if (!answer.optionId) return null;
+      const selectedOption = question.options?.find(opt => opt.id === answer.optionId);
+      return selectedOption?.label || selectedOption?.text || null;
+    }
+
+    return null;
+  };
+
+  const allResponses = questions
+    ?.map(q => ({
+      question: q,
+      formattedAnswer: formatAnswer(q, answers?.[q.id])
+    }))
+    .filter(item => item.formattedAnswer) || [];
 
   return (
     <Document>
@@ -303,6 +360,20 @@ export default function ResultsPDF({ results, areas, idTiquet }) {
             <Text style={styles.legendText}>Ben encaminat (7-9)</Text>
           </View>
         </View>
+
+        {allResponses.length > 0 && (
+          <View style={styles.textResponseSection}>
+            <Text style={styles.sectionTitle}>Respostes del qüestionari</Text>
+            {allResponses.map((item, idx) => (
+              <View key={item.question.id} style={styles.textResponseItem}>
+                <Text style={styles.textResponseQuestion}>
+                  {item.question.number ? `${item.question.number}. ` : ''}{item.question.text}
+                </Text>
+                <Text style={styles.textResponseAnswer}>{item.formattedAnswer}</Text>
+              </View>
+            ))}
+          </View>
+        )}
 
         <Text style={styles.footer}>
           Informe generat per Comerç a Punt - Barcelona Activa | {new Date().toLocaleDateString('ca-ES')}

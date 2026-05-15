@@ -98,7 +98,7 @@ export default function ResultsReport({ answers, areas, questions, scoring, sess
 
   const handleDownloadPDF = async () => {
     try {
-      const pdfDoc = <ResultsPDF results={results} areas={areas} idTiquet={idTiquet} />;
+      const pdfDoc = <ResultsPDF results={results} areas={areas} idTiquet={idTiquet} questions={questions} answers={answers} />;
       const pdfBlob = await pdf(pdfDoc).toBlob();
       
       const url = URL.createObjectURL(pdfBlob);
@@ -305,6 +305,15 @@ export default function ResultsReport({ answers, areas, questions, scoring, sess
             Descarregar informe PDF
           </button>
         </div>
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+            <p>Si vols més informació sobre com et podem ajudar amb el teu comerç, pots contactar-nos a través d'aquest formulari:</p>
+            <button 
+            onClick={() => window.open("https://www.barcelonaactiva.cat/comerca-punt/", "_blank")}
+              className="mt-4 inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-colors"
+              >
+              Inscriu-te al programa Comerç a Punt
+            </button>
+          </div>
       </div>
     </div>
   );

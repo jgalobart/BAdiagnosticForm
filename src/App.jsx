@@ -17,7 +17,7 @@ function App() {
     return params.get('idTiquet') || '';
   }, []);
 
-  const [currentStep, setCurrentStep] = useState(urlTicketId ? STEPS.QUESTIONNAIRE : STEPS.INTRO);
+  const [currentStep, setCurrentStep] = useState(STEPS.QUESTIONNAIRE);
   const [introData, setIntroData] = useState({});
   const [answers, setAnswers] = useState({});
   const [sessionId, setSessionId] = useState(null);

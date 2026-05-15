@@ -272,7 +272,7 @@
       "area": 4,
       "title": "ÀREA 4: INNOVACIÓ I DIGITALITZACIÓ",
       "max_score": 9,
-      "question_ids": ["q4_1", "q4_2", "q4_3", "q4_4"]
+      "question_ids": ["q4_1", "q4_2", "q4_3", "q4_4", "q4_5"]
     },
     {
       "id": "area5",
@@ -505,6 +505,14 @@
         { "id": "opt3", "label": "El meu proveïdor de programari/TPV m'ha confirmat que s'està adaptant, però encara no està operatiu.", "score": 2 },
         { "id": "opt4", "label": "El meu programari ja està certificat, compleix la normativa i permet l'enviament de dades si es requerís.", "score": 3 }
       ]
+    },
+
+    {
+      "id": "q4_5",
+      "number": "4.5",
+      "area": 4,
+      "type": "text",
+      "text": "Espai opcional per a comentaris o explicacions a les respostes anteriors:"
     },
 
     {
